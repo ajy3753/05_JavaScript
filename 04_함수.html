@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>함수</title>
+
+   <style>
+      div, button {
+         margin: 5px 0;
+      }
+
+      pre {
+         font-size: 11px;
+      }
+
+      .area {
+         border: 1px solid salmon;
+         width: 500px;
+         height: 100px;
+         background-color: antiquewhite;
+      }
+   </style>
+</head>
+<body>
+   <h1>함수 (function)</h1>
+
+   <h3 onclick="test1()">* 선언적 함수</h3>
+   <pre>
+      function 함수명([매개변수, 매개변수, ...]) {
+         함수 호출 시 실행할 코드;
+         []
+      }
+   </pre>
+
+   <div class="area" id="area1"></div>
+   <button onclick="test1()">실행확인</button>
+
+   <script>
+      function test1() {
+         document.querySelector("#area1").innerHTML += "test1() 함수 실행됨<br>"
+      }
+   </script>
+
+   <br><br><hr>
+
+   <h3>* 익명 함수</h3>
+   <pre>
+      변수 | 속성 = function([매개변수...]) {
+         함수 호출 시 실행할 코드;
+         [return 결과값;]
+      }
+   </pre>
+
+   <button id="btn">실행확인</button>
+   <div class="area" id="area2"></div>
+
+   <script>
+      // let testFunk = function() {
+      //   document.getElementById("area2").innerHTML += "익명함수로 실행<br>";
+      // }
+
+      const btn = document.getElementById("btn");
+      btn.onclick = function() {
+         // 이벤트 속성에 대입되는 function -> 이벤트 핸들러
+         document.getElementById("area2").innerHTML += "이벤트 핸들러로 실행<br>"
+      }
+   </script>
+
+   <br><hr>
+
+   <h2>함수의 매개변수</h2>
+
+   <button onclick="test2('김치우동', 6500)">실행확인</button>
+   <button onclick="test2('튀김우동')">실행확인</button>
+   <button onclick="test2()">실행확인</button>
+   <button onclick="test2('우동세트', 8000, '덮밥 추가')">실행확인</button>
+   <button onclick="test2('백종원 세트', 15000, '그런게', '존재', '하갰냐')">실행확인</button>
+
+   <div class="area" id="area3"></div>
+
+   <script>
+      // 자바스크립트는 override를 지원하지 않는다.   -> 함수명이 같으면 매개변수의 유무와 개수와 상관없이 같은 함수 취급
+      function test2(value1, value2) {
+         console.log(arguments);    // 함수 호출 시 전달되는 값은 내부적으로 arguments에 담겨있음
+         document.getElementById("area3").innerHTML = value1 + " " + value2;
+      }
+   </script>
+
+   <br><hr>
+
+   <h2>함수를 매개변수로 활용</h2>
+   <p>콘솔창 확인</p>
+
+   <script>
+      function sendUserInfo(userInfo, callBack) {  // 서버측으로 데이터를 전송하는 함수
+         // 서버로 전송 -> userInfo
+         // 결과가 로그인 성공일 시
+         let user = {
+            name : '피터팬',
+            age : '120'
+         }
+
+         callBack(user);
+      }
+
+      let id = "user1";
+      let pwd = "pass1";
+
+      sendUserInfo({
+         userId : id,
+         userPwd : pwd
+      },
+      function(user) {
+         console.log(user);
+         console.log("결제");
+      })
+   </script>
+
+   <br><hr>
+
+   <h2>this : 현재 요소 객체</h2>
+
+   <button onclick="test3(this)">1</button>
+   <button onclick="test3(this.innerHTML)">2</button>
+   <input type="button" value="3" onclick="test3(this.value)">
+   <button>4</button>
+
+   <script>
+      function test3(tmp) {
+         console.log(tmp);
+      }
+   </script>
+
+   <br>
+
+   <button onclick="test4(this)">클릭</button>
+
+   <script>
+      function test4(btn) {
+         if(btn.style.backgroundColor !== "red") {
+            btn.style.backgroundColor = "red";
+            btn.innerHTML = "클릭됨";
+         }
+         else {
+            btn.style.backgroundColor = "white";
+            btn.innerHTML = "클릭";
+         }
+      }
+   </script>
+
+   <br><hr>
+
+   <h2>함수의 리턴</h2>
+
+   <h3>* 일반적인 값 리턴</h3>
+   <div class="area" id="area5"></div>
+   <button onclick="test5()">실행</button>
+
+   <script>
+      function ran() {
+         const random = parseInt(Math.random() * 100 + 1);
+         return random;
+      }
+
+      function test5() {
+         document.querySelector("#area5").innerHTML += (("랜덤값 : " + ran())) + "<br>";
+      }
+   </script>
+
+   <br><hr>
+
+   <h3>* 함수를 리턴</h3>
+   이름 : <input type="text" id="user-name">
+   <button onclick="test6()()">실행</button>
+
+   <script>
+      function test6() {
+         const inputEl = document.getElementById("user-name");
+         
+         let alFunk = function() {
+            alert(inputEl.value);
+         }
+
+         return alFunk;
+      }
+   </script>
+</body>
+</html>
