@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice6</title>
+    <style>
+         button {
+            margin: 5px 0;
+         }
+
+        .area{
+            border: 1px solid black;
+            width: 300px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>HTML 태그에 접근 테스트</h1>
+    <p>단, 구매자는 태그 이름으로 접근, 상품명은 아이디로 접근, 구매가격은 name값으로 접근할 것</p>
+
+    <fieldset>
+      <legend>구매 정보</legend>
+
+      <ul>
+         <li>구매자 : <input type="text" placeholder="구매자의 이름을 입력하세요"></li>
+         <li>상품명 : <input type="text" placeholder="구매 상품명을 입력하세요"></li>
+         <li>가격 : <input type="number" placeholder="구매 가격을 입력하세요"></li>
+         <li>구매수량 : <input type="number" placeholder="최소 10" min="10" max="100"></li>
+         <li>납품 등급 : <input type="range" min="1" max="9" step="2" value="1"></li>
+         <li>기타사항 : <textarea></textarea></li>
+      </ul>
+    </fieldset>
+
+    <button onclick="textPrint()">입력값 출력하기</button>
+
+    <br><br>
+
+    <div id="area1" class="area" style="background: bisque;"></div>
+    
+    <script>
+      function textPrint() {
+         const area = document.getElementById("area");
+         let liArr = document.getElementsByTagName("li");
+
+         for(let li of liArr) {
+            li.childNodes
+         }
+      }
+    </script>
+</body>
+</html>
